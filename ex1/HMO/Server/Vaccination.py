@@ -27,6 +27,6 @@ class Vaccination(Base):
             'vaccination_id': self.vaccinationID,
             'memberID': self.memberID,
             'vaccination_code': self.vaccination_code,
-            'vaccination_date': self.vaccination_date.strftime('%d.%m.%Y'),
+            'vaccination_date': self.vaccination_date.strftime('%d-%m-%Y'),
             'manufacturer': self.manufacturer
         }

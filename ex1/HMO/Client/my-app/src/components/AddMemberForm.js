@@ -17,7 +17,8 @@ const AddMemberForm = ({ onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.memberID && formData.first_name && formData.last_name && formData.city) {
+    if (formData.memberID && formData.first_name && formData.last_name && formData.city && formData.birth_date && formData.street && formData.house_number) {
+      console.log(formData)
       onAdd(formData);
       setFormData({
         memberID: '',

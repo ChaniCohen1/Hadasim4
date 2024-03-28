@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String,Integer,Date,LargeBinary;
 from sqlalchemy.ext.declarative import declarative_base;
 from sqlalchemy.orm import relationship
+from datetime import datetime
 
 Base = declarative_base()
 
@@ -32,6 +33,7 @@ class Member(Base):
         self.cellular = cellular
         self.illness_date = illness_date
         self.recovery_date = recovery_date
+
         #self.member_image = member_image
         
     def to_dict(self):

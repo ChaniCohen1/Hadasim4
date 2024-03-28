@@ -6,6 +6,8 @@ from sqlalchemy import create_engine,func
 from Member import Member, Base
 from Vaccination import Vaccination
 from connectDB import connect_to_database
+from datetime import datetime
+
 app = Flask(__name__)
 CORS(app)
 
@@ -75,6 +77,12 @@ def update_member():
         # קבלת האובייקט המעודכן מהלקוח
         updated_member_data = request.json
         print(updated_member_data)
+        birth_date_str = updated_member_data['birth_date']
+        birth_date = datetime.strptime(birth_date_str, '%d.%m.%Y').date()
+        illness_date_str = updated_member_data['illness_date']
+        illness_date = datetime.strptime(illness_date_str, '%d.%m.%Y').date()
+        recovery_date_str = updated_member_data['recovery_date']
+        recovery_date = datetime.strptime(recovery_date_str, '%d.%m.%Y').date()
         # יצירת אובייקט Member חדש עם הנתונים המעודכנים
         updated_member = Member(
             memberID=updated_member_data['memberID'],
@@ -83,12 +91,11 @@ def update_member():
             city=updated_member_data['city'],
             street=updated_member_data['street'],
             house_number=updated_member_data['house_number'],
-            birth_date=updated_member_data['birth_date'],
+            birth_date=birth_date,
             phone=updated_member_data['phone'],
             cellular=updated_member_data['cellular'],
-            illness_date=updated_member_data['illness_date'],
-            recovery_date=updated_member_data['recovery_date'],
-            member_image=updated_member_data['member_image']
+            illness_date=illness_date,
+            recovery_date=recovery_date,
         )
         print(updated_member)
         # עדכון המידע במסד הנתונים
