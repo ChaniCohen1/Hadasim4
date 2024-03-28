@@ -12,6 +12,7 @@ const VaccinationList = ({ memberID }) => {
     fetchVaccinations(memberID);
   }, [memberID]);
 
+  //פונקציה שמציגה את כל החיסונים עבור משתמש מסוים
   const fetchVaccinations = async (memberID) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/read_veccination_member', {
@@ -39,6 +40,8 @@ const VaccinationList = ({ memberID }) => {
     }
   };
   
+
+  //פונקציה להוספת חיסון
   const addVaccinations = async (vaccination) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/create_veccination', {
@@ -60,6 +63,8 @@ const VaccinationList = ({ memberID }) => {
     }
   };
    
+
+  //פונקציה לעדכון חיסון
   const updateVaccination = async (vaccination) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/update_veccination', {
@@ -81,6 +86,8 @@ const VaccinationList = ({ memberID }) => {
     }
   };
 
+
+  //פונקציה למחיקת חיסון
   const deleteVaccination = async (vaccinationID) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/delete_veccination', {
