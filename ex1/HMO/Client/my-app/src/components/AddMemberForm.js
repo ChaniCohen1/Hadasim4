@@ -47,57 +47,57 @@ const AddMemberForm = ({ onAdd, onClose }) => {
         <form onSubmit={handleSubmit}>
           <h2>הוספת חבר חדש</h2>
           <label>
-            id:
+            תז:
             <input type="text" name="memberID" value={formData.memberID} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, memberID: value })); }} />
           </label>
           <br />
           <label>
-            first name:
+             שם פרטי:
             <input type="text" name="first_name" value={formData.first_name} onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setFormData(prevState => ({ ...prevState, first_name: value })); }} />
           </label>
           <br />
           <label>
-            last name:
+            שם משפחה:
             <input type="text" name="last_name" value={formData.last_name} onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setFormData(prevState => ({ ...prevState, last_name: value })); }} />
           </label>
           <br />
           <label>
-            city:
+            עיר:
             <input type="text" name="city" value={formData.city} onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setFormData(prevState => ({ ...prevState, city: value })); }} />
           </label>
           <br />
           <label>
-            street:
+            רחוב:
             <input type="text" name="street" value={formData.street} onChange={(e) => {setFormData(prevState => ({ ...prevState, street: e.target.value })); }} />
           </label>
           <br />
           <label>
-            number house:
+            מספר בית:
             <input type="text" name="house_number" value={formData.house_number} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, house_number: value })); }} />
           </label>
           <br />
           <label>
-            birth date:
+            תאריך לידה:
             <input type="date" name="birth_date" value={formData.birth_date} onChange={(e) => {setFormData(prevState => ({ ...prevState, birth_date: e.target.value })); }} />
           </label>
           <br />
           <label>
-            phone:
+            טלפון:
             <input type="tel" name="phone" value={formData.phone} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, phone: value })); }} />
           </label>
           <br />
           <label>
-            cellular:
+            נייד:
             <input type="tel" name="cellular" value={formData.cellular} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, cellular: value })); }}  />
           </label>
           <br />
           <label>
-            positiveTestDate:
+            תאריך מחלה:
             <input type="date" name="illness_date" value={formData.illness_date} onChange={(e) => {setFormData(prevState => ({ ...prevState, illness_date: e.target.value })); }} />
           </label>
           <br />
           <label>
-            recoveryDate:
+            תאריך החלמה:
             <input type="date" name="recovery_date" value={formData.recovery_date} onChange={(e) => {setFormData(prevState => ({ ...prevState, recovery_date: e.target.value })); }} />
           </label>
           <br />

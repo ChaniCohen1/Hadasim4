@@ -108,8 +108,7 @@ const Home = () => {
 
   return (
     <div>
-       {/* הוספת הכותרת ואפשרות להוספת חבר חדש */}
-       <button onClick={toggleAddMemberForm}>
+      <button onClick={toggleAddMemberForm}>
       {isAddMemberFormVisible ? 'סגירת טופס' : 'הוספת חבר חדש'}
       </button>
       {/* תצוגת טופס הוספת החבר */}

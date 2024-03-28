@@ -231,5 +231,21 @@ def delete_veccination():
         session.close()
 
 
+# פונקציה לקבלת רשימת חברי הקופת חולים שלא מחוסנים כלל
+@app.route('/unvaccinated_members', methods=['GET'])
+def unvaccinated_members():
+    session = connect_to_database()
+    try:
+        # ביצוע שאילתה למציאת חברים שאינם מחוסנים כלל
+        unvaccinated_members = session.query(Member).outerjoin(Vaccination, Member.memberID == Vaccination.memberID).filter(Vaccination.vaccinationID == None).all()
+        unvaccinated_member_objects = [member.to_dict() for member in unvaccinated_members]
+        return jsonify({'unvaccinated_members': unvaccinated_member_objects}), 200
+    except Exception as e:
+        print(str(e))
+        return jsonify({'error': str(e)}), 400
+    finally:
+        session.close()
+
+
 if __name__ == '__main__':
   app.run(debug=True)
