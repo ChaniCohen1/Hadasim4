@@ -1,9 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from sqlalchemy.orm import sessionmaker
-import urllib
-from sqlalchemy import create_engine,func
-from Member import Member, Base
+from sqlalchemy import func
+from Member import Member
 from Vaccination import Vaccination
 from connectDB import connect_to_database
 from datetime import datetime
