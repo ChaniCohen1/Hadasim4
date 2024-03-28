@@ -11,16 +11,6 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
-# # הגדרת חיבור למסד נתונים SQL
-# quoted = urllib.parse.quote_plus("DRIVER={SQL Server Native Client 11.0};SERVER=CHANI\\SQLEXPRESS;DATABASE=HMO;Trusted_Connection=yes;")
-# engine = create_engine(f"mssql+pyodbc:///?odbc_connect={quoted}")
-
-# # יצירת טבלה אם היא עדיין לא קיימת
-# Base.metadata.create_all(engine)
-
-# # יצירת סשן לשימוש במסד הנתונים
-# Session = sessionmaker(bind=engine)
-# session = Session()
 #הוספת חבר חדש
 @app.route('/create_member', methods=['POST'])
 def create_member():
@@ -149,7 +139,6 @@ def create_veccination_member():
         if num_vaccinations >= 4:
             return jsonify({'message': 'לא ניתן להוסיף חיסון נוסף, מספר החיסונים עבר את המגבלה'})
         else:
-            print("$$$$$$$$$$$$$$$$$$$$")
             # יצירת אובייקט חדש לחיסון
             veccination = Vaccination(
                 memberID=new_veccination['vaccination'].get('memberID'),

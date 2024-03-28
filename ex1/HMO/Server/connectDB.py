@@ -16,9 +16,3 @@ def connect_to_database():
     return session
 
 
-# quoted = urllib.parse.quote_plus("DRIVER={SQL Server Native Client 11.0};SERVER=CHANI\SQLEXPRESS;DATABASE=HMO;Trusted_Connection=yes;")
-# engine = db.create_engine('mssql+pyodbc:///?odbc_connect={}'.format(quoted))
-# conn = engine.connect().execution_options(isolation_level='READ UNCOMMITTED')
-# Session = sessionmaker(bind=engine)
-# print("$$$$$$$$$$")
-# session = Session()

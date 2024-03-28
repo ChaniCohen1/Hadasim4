@@ -1,7 +1,7 @@
-from sqlalchemy import Column, String,Integer,Date,LargeBinary;
+from sqlalchemy import Column, String,Integer,Date;
 from sqlalchemy.ext.declarative import declarative_base;
 from sqlalchemy.orm import relationship
-from datetime import datetime
+
 
 Base = declarative_base()
 
@@ -20,7 +20,6 @@ class Member(Base):
     recovery_date = Column(Date)
     #member_image = Column(LargeBinary)
     
-    #vaccinations = relationship("VaccinationMember", cascade="all, delete", backref="member")
     def __init__(self, memberID, first_name, last_name, city, street, house_number, birth_date, phone, cellular, illness_date, recovery_date):
         self.memberID = memberID
         self.first_name = first_name
@@ -33,7 +32,6 @@ class Member(Base):
         self.cellular = cellular
         self.illness_date = illness_date
         self.recovery_date = recovery_date
-
         #self.member_image = member_image
         
     def to_dict(self):
@@ -49,8 +47,5 @@ class Member(Base):
             'cellular': self.cellular,
             'illness_date': self.illness_date.strftime('%d.%m.%Y') if self.illness_date else None,
             'recovery_date': self.recovery_date.strftime('%d.%m.%Y') if self.recovery_date else None,
-            # אם משתמשים ב-Python 3.8+ ניתן לכתוב:
-            # 'illness_date': self.illness_date.isoformat() if self.illness_date else None,
-            # 'recovery_date': self.recovery_date.isoformat() if self.recovery_date else None,
             #'member_image': self.member_image,
         }
