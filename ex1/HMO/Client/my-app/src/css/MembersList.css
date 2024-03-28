@@ -1,0 +1,27 @@
+.members-list-container {
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center; /* מרכז את הטבלה */
+}
+
+.members-list {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* הוספת גבולות לטבלה */
+}
+
+.members-list th,
+.members-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.members-list th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.member-row:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
