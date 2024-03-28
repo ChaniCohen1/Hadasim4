@@ -4,8 +4,8 @@
 python app.py
 
 ## To run the client:
-npm install
-npm start
+- npm install
+- npm start
 
 
 ## List of HMO members:
