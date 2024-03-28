@@ -187,9 +187,10 @@ def update_veccination():
         print(new_veccination)
         
         vaccinationID = new_veccination['vaccination'].get('vaccinationID')
-        print(vaccinationID)
+        print("$$$$",vaccinationID)
         #חיפוש החיסון שיש לעדכן
         veccination_to_update = session.query(Vaccination).filter_by(vaccinationID=vaccinationID).first()
+        print(veccination_to_update)
         if veccination_to_update:
             # עדכון פרטי החיסון
             veccination_to_update.vaccination_code = new_veccination['vaccination']['vaccination_code']

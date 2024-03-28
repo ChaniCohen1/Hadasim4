@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import '../css/AddMemberForm.css';
 
-const AddMemberForm = ({ onAdd }) => {
+const AddMemberForm = ({ onAdd, onClose }) => {
   const [formData, setFormData] = useState({
     memberID: '',
     first_name: '',
@@ -18,7 +19,6 @@ const AddMemberForm = ({ onAdd }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.memberID && formData.first_name && formData.last_name && formData.city && formData.birth_date && formData.street && formData.house_number) {
-      console.log(formData)
       onAdd(formData);
       setFormData({
         memberID: '',
@@ -33,76 +33,78 @@ const AddMemberForm = ({ onAdd }) => {
         illness_date: '',
         recovery_date: '',
       });
+      onClose(); // Close the popup after adding a new member
     } else {
       alert('Please fill in all required fields.');
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({ ...prevState, [name]: value }));
-  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>הוספת חבר חדש</h2>
-      <label>
-        id:
-        <input type="text" name="memberID" value={formData.memberID} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        first name:
-        <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        last name:
-        <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        city:
-        <input type="text" name="city" value={formData.city} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        street:
-        <input type="text" name="street" value={formData.street} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        number house:
-        <input type="text" name="house_number" value={formData.house_number} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        birth date:
-        <input type="date" name="birth_date" value={formData.birth_date} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        phone:
-        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        cellular:
-        <input type="tel" name="cellular" value={formData.cellular} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-      positiveTestDate:
-        <input type="date" name="illness_date" value={formData.illness_date} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-      recoveryDate:
-        <input type="date" name="recovery_date" value={formData.recovery_date} onChange={handleChange} />
-      </label>
-      <br />
-      <button type="submit">Add new member</button>
-    </form>
+    <div className="popup">
+      <div className="popup-content">
+        <span className="close" onClick={onClose}>&times;</span>
+        <form onSubmit={handleSubmit}>
+          <h2>הוספת חבר חדש</h2>
+          <label>
+            id:
+            <input type="text" name="memberID" value={formData.memberID} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, memberID: value })); }} />
+          </label>
+          <br />
+          <label>
+            first name:
+            <input type="text" name="first_name" value={formData.first_name} onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setFormData(prevState => ({ ...prevState, first_name: value })); }} />
+          </label>
+          <br />
+          <label>
+            last name:
+            <input type="text" name="last_name" value={formData.last_name} onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setFormData(prevState => ({ ...prevState, last_name: value })); }} />
+          </label>
+          <br />
+          <label>
+            city:
+            <input type="text" name="city" value={formData.city} onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setFormData(prevState => ({ ...prevState, city: value })); }} />
+          </label>
+          <br />
+          <label>
+            street:
+            <input type="text" name="street" value={formData.street} onChange={(e) => {setFormData(prevState => ({ ...prevState, street: e.target.value })); }} />
+          </label>
+          <br />
+          <label>
+            number house:
+            <input type="text" name="house_number" value={formData.house_number} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, house_number: value })); }} />
+          </label>
+          <br />
+          <label>
+            birth date:
+            <input type="date" name="birth_date" value={formData.birth_date} onChange={(e) => {setFormData(prevState => ({ ...prevState, birth_date: e.target.value })); }} />
+          </label>
+          <br />
+          <label>
+            phone:
+            <input type="tel" name="phone" value={formData.phone} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, phone: value })); }} />
+          </label>
+          <br />
+          <label>
+            cellular:
+            <input type="tel" name="cellular" value={formData.cellular} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setFormData(prevState => ({ ...prevState, cellular: value })); }}  />
+          </label>
+          <br />
+          <label>
+            positiveTestDate:
+            <input type="date" name="illness_date" value={formData.illness_date} onChange={(e) => {setFormData(prevState => ({ ...prevState, illness_date: e.target.value })); }} />
+          </label>
+          <br />
+          <label>
+            recoveryDate:
+            <input type="date" name="recovery_date" value={formData.recovery_date} onChange={(e) => {setFormData(prevState => ({ ...prevState, recovery_date: e.target.value })); }} />
+          </label>
+          <br />
+          <button type="submit">Add new member</button>
+        </form>
+      </div>
+    </div>
   );
 };
 

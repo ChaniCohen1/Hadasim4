@@ -96,14 +96,24 @@ const Home = () => {
     }
   };
 
+  const resetMembersList = () => {
+    setIsAddMemberFormVisible(false);
+    fetchData();
+  };
+
+  const toggleAddMemberForm = () => {
+    setIsAddMemberFormVisible(!isAddMemberFormVisible);
+  };
+
+
   return (
     <div>
        {/* הוספת הכותרת ואפשרות להוספת חבר חדש */}
-      <button onClick={() => setIsAddMemberFormVisible(!isAddMemberFormVisible)}>
-        {isAddMemberFormVisible ? 'סגירת טופס' : 'הוספת חבר חדש'}
+       <button onClick={toggleAddMemberForm}>
+      {isAddMemberFormVisible ? 'סגירת טופס' : 'הוספת חבר חדש'}
       </button>
       {/* תצוגת טופס הוספת החבר */}
-      {isAddMemberFormVisible && <AddMemberForm onAdd={addMember} />}
+      {isAddMemberFormVisible && <AddMemberForm onAdd={addMember} onClose={resetMembersList}/>}
       {/* הצגת רשימת החברים */}
       <MembersList members={members} onEdit={updateMember} onDelete={deleteMember} />    </div>
   );

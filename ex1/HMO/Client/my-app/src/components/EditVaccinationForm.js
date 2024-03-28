@@ -4,11 +4,6 @@ import '../css/EditVaccinationForm.css';
 const EditVaccinationForm = ({ vaccination, onUpdate, onClose }) => {
   const [updatedVaccination, setUpdatedVaccination] = useState(vaccination);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedVaccination({ ...updatedVaccination, [name]: value });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdate(updatedVaccination);
@@ -31,21 +26,21 @@ const EditVaccinationForm = ({ vaccination, onUpdate, onClose }) => {
           type="text"
           name="manufacturer"
           value={updatedVaccination.manufacturer}
-          onChange={handleChange}
+          onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setUpdatedVaccination(prevState => ({ ...prevState, manufacturer: value })); }} 
         />
         <label>קוד חיסון:</label>
         <input
           type="text"
           name="vaccination_code"
           value={updatedVaccination.vaccination_code}
-          onChange={handleChange}
+          onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setUpdatedVaccination(prevState => ({ ...prevState, vaccination_code: value })); }} 
         />
         <label>תאריך:</label>
         <input
           type="text"
           name="vaccination_date"
           value={updatedVaccination.vaccination_date}
-          onChange={handleChange}
+          onChange={(e) => {setUpdatedVaccination(prevState => ({ ...prevState, vaccination_date: e.target.value })); }}
         />
         <button type="submit">עדכן</button>
         <button type="button" onClick={handleCancel}>ביטול</button>

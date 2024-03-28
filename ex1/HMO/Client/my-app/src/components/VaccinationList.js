@@ -5,10 +5,10 @@ import EditVaccinationForm from './EditVaccinationForm';
 
 const VaccinationList = ({ memberID }) => {
   const [vaccinations, setVaccinations] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedVaccination, setSelectedVaccination] = useState(null); // הוסף משתנה סטייט לקומפוננטה שמכיל את החיסון שנבחר לעריכה
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [selectedVaccination, setSelectedVaccination] = useState(null); 
 
-useEffect(() => {
+  useEffect(() => {
     fetchVaccinations(memberID);
   }, [memberID]);
 
@@ -27,8 +27,6 @@ useEffect(() => {
       }
   
       const data = await response.json();
-      console.log(data.vaccinations)
-      // יצירת רשימת חיסונים חדשה עם השדות הרצויים בלבד, כולל vaccinationID
       const simplifiedVaccinations = data.vaccinations.map(vaccination => ({
         vaccinationID: vaccination.vaccination_id,
         manufacturer: vaccination.manufacturer,
@@ -36,115 +34,89 @@ useEffect(() => {
         vaccination_date: vaccination.vaccination_date
       }));
       setVaccinations(simplifiedVaccinations);
-      console.log(simplifiedVaccinations);
     } catch (error) {
       console.error('שגיאה בקריאת רשימת החיסונים:', error);
     }
   };
   
-
-const addVaccinations = async (vaccination) => {
+  const addVaccinations = async (vaccination) => {
     try {
-        const response = await fetch('http://127.0.0.1:5000/create_veccination', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ vaccination })
-        });
+      const response = await fetch('http://127.0.0.1:5000/create_veccination', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ vaccination })
+      });
   
-        if (!response.ok) {
-          throw new Error('תגובת השרת לא הייתה תקינה');
-        }
-  
-        const data = await response.json();
-        fetchVaccinations(vaccination.memberID);
-        console.log(vaccination.memberID);
-      } catch (error) {
-        console.error('שגיאה בהוספת חיסון חדש', error);
+      if (!response.ok) {
+        throw new Error('תגובת השרת לא הייתה תקינה');
       }
-    };
+  
+      const data = await response.json();
+      fetchVaccinations(vaccination.memberID);
+    } catch (error) {
+      console.error('שגיאה בהוספת חיסון חדש', error);
+    }
+  };
    
-    
-const updateVaccination = async (vaccination) => {
+  const updateVaccination = async (vaccination) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/update_veccination', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ vaccination })
       });
       
-        if (!response.ok) {
-            throw new Error('תגובת השרת לא הייתה תקינה');
-          }
+      if (!response.ok) {
+        throw new Error('תגובת השרת לא הייתה תקינה');
+      }
       
-        const data = await response.json();
-        fetchVaccinations(memberID);
-        console.log(data.message); // הדפסת הודעת השרת
-        } catch (error) {
-          console.error('שגיאה בעדכון חיסון:', error);
-        }
-    };
-      
+      const data = await response.json();
+      fetchVaccinations(memberID);
+    } catch (error) {
+      console.error('שגיאה בעדכון חיסון:', error);
+    }
+  };
 
-
-const deleteVaccination = async (vaccinationID) => {
+  const deleteVaccination = async (vaccinationID) => {
     try {
-        const response = await fetch('http://127.0.0.1:5000/delete_veccination', {
+      const response = await fetch('http://127.0.0.1:5000/delete_veccination', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ vaccinationID })
-        });
+      });
     
-        if (!response.ok) {
-            throw new Error('תגובת השרת לא הייתה תקינה');
-        }
+      if (!response.ok) {
+        throw new Error('תגובת השרת לא הייתה תקינה');
+      }
     
-        const data = await response.json();
-        fetchVaccinations(memberID);
+      const data = await response.json();
+      fetchVaccinations(memberID);
     } catch (error) {
-        console.error('שגיאה במחיקת חיסון', error);
+      console.error('שגיאה במחיקת חיסון', error);
     }
-};
-
-
-const editVaccination = (vaccination) => {
-    setSelectedVaccination(vaccination); // קבע את החיסון שנבחר לעריכה
-    setShowPopup(true); // פתח את הפופאפ לעריכה
   };
 
-
-
-const closePopup = () => {
-    setShowPopup(false);
-  };
-
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
+  const editVaccination = (vaccination) => {
+    setSelectedVaccination(vaccination);
+    setShowAddForm(false);
   };
 
   return (
     <div className="vaccination-list">
       <h2>רשימת חיסונים</h2>
-      <button onClick={() => setShowPopup(true)}>הוספה</button>
-      {showPopup && (
-        selectedVaccination ? ( // בדוק אם יש חיסון שנבחר לעריכה
-          <EditVaccinationForm
-            vaccination={selectedVaccination}
-            onUpdate={updateVaccination}
-            onClose={closePopup}
-          />
-        ) : (
-          <AddVaccinationForm
-            memberID={memberID}
-            onAdd={addVaccinations}
-            onClose={closePopup}
-          />
-        )
+      <button onClick={() => setShowAddForm(true)}>הוספה</button>
+      {showAddForm && (
+        <AddVaccinationForm
+          memberID={memberID}
+          onAdd={addVaccinations}
+          onClose={() => setShowAddForm(false)}
+        />
       )}
       <table>
         <thead>
@@ -170,6 +142,13 @@ const closePopup = () => {
           ))}
         </tbody>
       </table>
+      {selectedVaccination && (
+        <EditVaccinationForm
+          vaccination={selectedVaccination}
+          onUpdate={updateVaccination}
+          onClose={() => setSelectedVaccination(null)}
+        />
+      )}
     </div>
   );
 };

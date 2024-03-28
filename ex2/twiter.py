@@ -1,5 +1,5 @@
 
-num = int(input("Enter number\n"))
+num = int(input("Insert 1 - rectangle, 2 - triangle, 3 - exit\n"))
 while num != 3:
     height = int(input("Enter the height of the tower\n"))
     width = int(input("Enter the width of the tower\n"))
@@ -47,4 +47,4 @@ while num != 3:
     else:
         print("Incorrect input")
     
-    num = int(input("Enter number\n"))
+    num = int(input("Insert 1 - rectangle, 2 - triangle, 3 - exit\n"))

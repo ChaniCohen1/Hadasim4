@@ -9,13 +9,10 @@ const AddVaccinationForm = ({memberID, onAdd, onClose }) => {
     manufacturer: ''
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewVaccination({ ...newVaccination, [name]: value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (newVaccination.vaccination_code && newVaccination.vaccination_date && newVaccination.manufacturer){
     onAdd(newVaccination);
     console.log(newVaccination)
     setNewVaccination({
@@ -24,6 +21,9 @@ const AddVaccinationForm = ({memberID, onAdd, onClose }) => {
       vaccination_code: '',
       manufacturer: ''
     });
+  }  else{
+          alert('Please fill in all required fields.');
+  }
   };
 
   const handleClose = () => {
@@ -43,15 +43,15 @@ const AddVaccinationForm = ({memberID, onAdd, onClose }) => {
       <form onSubmit={handleSubmit}>
         <label>
           תאריך חיסון:
-          <input type="date" name="vaccination_date" value={newVaccination.vaccination_date} onChange={handleChange} />
+          <input type="date" name="vaccination_date" value={newVaccination.vaccination_date} onChange={(e) => {setNewVaccination(prevState => ({ ...prevState, vaccination_date: e.target.value })); }} />
         </label>
         <label>
           קוד חיסון:
-          <input type="text" name="vaccination_code" value={newVaccination.vaccination_code} onChange={handleChange} />
+          <input type="text" name="vaccination_code" value={newVaccination.vaccination_code} onChange={(e) => { const value = e.target.value.replace(/\D/g, ''); setNewVaccination(prevState => ({ ...prevState, vaccination_code: value })); }}  />
         </label>
         <label>
           יצרן:
-          <input type="text" name="manufacturer" value={newVaccination.manufacturer} onChange={handleChange} />
+          <input type="text" name="manufacturer" value={newVaccination.manufacturer} onChange={(e) => { const value = e.target.value.replace(/\d/g, ''); setNewVaccination(prevState => ({ ...prevState, manufacturer: value })); }}  />
         </label>
         <button type="submit">הוספת חיסון</button>
       </form>
